@@ -12,7 +12,7 @@
   "maintainer": "jannikco",
   "license": "MIT",
   "attributionSlug": "github-pipedrive-mcp",
-  "sourceRevision": "da63d17f58ec618f151ab916146db5eaaf28215a869bc8f57c8aab6de9cd4117",
+  "sourceRevision": "69f9311abbf891a2d3b9551b33ebf40f34f59b0e8167cede0346ecd2720ede88",
   "qualityVersion": 2,
   "artifactType": "connector",
   "evidence": [
@@ -30,7 +30,7 @@
   "appName": "Pipedrive",
   "connectorId": "pipedrive",
   "executionAuthority": "pipmcp-gateway",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "agentReady": true,
   "capabilityEvidence": {
     "local": {

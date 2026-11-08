@@ -1,0 +1,55 @@
+{
+  "id": "pipedrive-contact-completeness",
+  "repositoryId": "pipedrive-mcp",
+  "product": "pipmcp",
+  "connectorId": "pipedrive",
+  "title": "Find Pipedrive people missing contact details",
+  "promise": "Review existing person records missing an email before any outreach.",
+  "sourceRevision": "69f9311abbf891a2d3b9551b33ebf40f34f59b0e8167cede0346ecd2720ede88",
+  "credential": "PIPMCP_API_KEY",
+  "transport": "pipmcp-gateway",
+  "sourceRefs": [
+    "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+  ],
+  "readTask": {
+    "intent": "Review existing person records missing an email before any outreach.",
+    "requiredCapability": "Read-only authorized account data; discover actual names and schemas first"
+  },
+  "synthetic": {
+    "strategy": "equals",
+    "field": "emailPresent",
+    "value": false,
+    "records": [
+      {
+        "id": "synthetic-person-p1",
+        "organization": "Synthetic Sales",
+        "emails": []
+      },
+      {
+        "id": "synthetic-person-p2",
+        "organization": "Synthetic Agency",
+        "emails": [
+          "synthetic@example.invalid"
+        ]
+      }
+    ],
+    "input": {
+      "limit": 10
+    },
+    "normalization": "Invented normalized review fields demonstrate task logic; live provider schemas and field mappings must be reviewed separately.",
+    "expectedReviewCount": 1,
+    "asOf": "2026-11-08T00:00:00Z",
+    "normalize": {
+      "type": "email-present",
+      "sourceField": "emails"
+    }
+  },
+  "livePolicy": {
+    "default": "preflight-only",
+    "explicitReadSelectionRequired": true,
+    "providerWritesAllowed": false,
+    "sandboxWritesRequireSeparateApproval": true
+  },
+  "baseSourceRevision": "da63d17f58ec618f151ab916146db5eaaf28215a869bc8f57c8aab6de9cd4117",
+  "releaseVersion": "1.1.0"
+}
