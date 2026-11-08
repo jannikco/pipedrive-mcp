@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "sourceRevision": "9cac0ae0ba28a9fef7467511a953d57afd8b1a76fa345c71ea649ae050ef7ab7",
+  "evidence": [
+    "Source-backed provider setup metadata",
+    "Offline configuration and MCP protocol tests"
+  ],
+  "provenance": [
+    "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+  ],
+  "id": "pipedrive-mcp",
+  "kind": "mcp-setup",
+  "product": "pipmcp",
+  "title": "Pipedrive MCP setup and connection checker",
+  "description": "Generate Pipedrive MCP client configuration, inspect available tools and validate hosted endpoint access through PipMCP.",
+  "operationIds": [],
+  "appSlug": "pipedrive",
+  "appName": "Pipedrive",
+  "providerDocs": "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml",
+  "providerWebsite": "https://www.pipedrive.com/",
+  "authentication": {
+    "type": "api_key_header",
+    "requiredCredentialFields": [
+      "api_key"
+    ],
+    "requiredHeaderNames": [],
+    "helpUrl": "https://pipedrive.readme.io/docs/how-to-find-the-api-token",
+    "tenantRequired": false,
+    "accountParameterNames": []
+  },
+  "attributionSlug": "github-pipedrive-mcp"
+}
