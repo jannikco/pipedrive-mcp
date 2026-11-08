@@ -1,0 +1,224 @@
+{
+  "id": "pipedrive",
+  "name": "Pipedrive",
+  "version": "0.1.0",
+  "baseUrl": "https://api.pipedrive.com/api/v2",
+  "auth": {
+    "type": "header",
+    "env": "PIPEDRIVE_API_TOKEN",
+    "header": "x-api-token"
+  },
+  "tools": [
+    {
+      "name": "pipedrive_list_persons",
+      "description": "pipedrive list persons",
+      "method": "GET",
+      "path": "/persons",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "cursor": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {
+          "limit": "limit",
+          "cursor": "cursor"
+        },
+        "body": {}
+      },
+      "approvalRequired": false,
+      "provenance": [
+        "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+      ],
+      "evidence": {
+        "state": "documented",
+        "providerLiveValidation": "not-run"
+      },
+      "sampleArguments": {
+        "limit": 5
+      }
+    },
+    {
+      "name": "pipedrive_get_person",
+      "description": "pipedrive get person",
+      "method": "GET",
+      "path": "/persons/{id}",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [
+          "id"
+        ],
+        "query": {},
+        "body": {}
+      },
+      "approvalRequired": false,
+      "provenance": [
+        "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+      ],
+      "evidence": {
+        "state": "documented",
+        "providerLiveValidation": "not-run"
+      },
+      "sampleArguments": {
+        "id": 42
+      }
+    },
+    {
+      "name": "pipedrive_create_person",
+      "description": "pipedrive create person",
+      "method": "POST",
+      "path": "/persons",
+      "readOnly": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {},
+        "body": {
+          "name": "name"
+        }
+      },
+      "approvalRequired": true,
+      "provenance": [
+        "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+      ],
+      "evidence": {
+        "state": "documented",
+        "providerLiveValidation": "not-run"
+      },
+      "sampleArguments": {
+        "name": "Sandbox Example"
+      }
+    }
+  ],
+  "workflow": {
+    "name": "pipedrive-workflow",
+    "description": "Read the sales contact list and add a person to an existing sales workspace.",
+    "steps": [
+      "pipedrive_list_persons",
+      "pipedrive_get_person",
+      "pipedrive_create_person"
+    ]
+  },
+  "provenance": [
+    "https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml"
+  ],
+  "sourceEvidence": {
+    "state": "documented",
+    "providerLiveValidation": "not-run",
+    "checkedAt": "2026-11-08",
+    "operationCount": 3,
+    "kind": "official-openapi",
+    "sha256": "9b885686eb08d505e1a339aaf3e15fb20f0b93155c5f45f876092e4502f6ee68"
+  },
+  "setup": {
+    "requiresPipMcpAccount": false,
+    "credentialsHelpUrl": "https://pipedrive.readme.io/docs/how-to-find-the-api-token",
+    "instructions": "In Pipedrive, click your profile (top right) → Personal preferences → API, then copy your personal API token."
+  },
+  "sampleWarning": "Example IDs are placeholders, not known provider records. Replace them with authorized sandbox/account IDs. Contact emails, file URLs and recipient numbers must be replaced with data you are authorized to use. Examples never authorize a write.",
+  "repoId": "pipedrive-mcp",
+  "appSlug": "pipedrive",
+  "product": "pipmcp",
+  "artifactType": "connector",
+  "sourceRevision": "40c6176d587101d0d889f6ec346d6d2211ff3225ca602f6cdb52fd64cf7871ef",
+  "capabilityEvidence": {
+    "local": {
+      "level": "Tested",
+      "operations": [
+        {
+          "name": "pipedrive_list_persons",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "pipedrive_get_person",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "pipedrive_create_person",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        }
+      ],
+      "evidenceRefs": [
+        "Provider request/stdio contract tests"
+      ],
+      "mode": "local"
+    },
+    "managed": {
+      "level": "Documented",
+      "operations": [
+        {
+          "name": "pipedrive_list_persons",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "pipedrive_get_person",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "pipedrive_create_person",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        }
+      ],
+      "evidenceRefs": [],
+      "mode": "managed"
+    }
+  },
+  "managedAvailability": {
+    "status": "listed",
+    "checkedAt": "2026-11-08T12:29:10.433747+00:00"
+  }
+}

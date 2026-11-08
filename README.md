@@ -1,49 +1,69 @@
-# Pipedrive MCP setup and connection checker
+# Pipedrive MCP server
 
-Generate Pipedrive MCP client configuration, inspect available tools and validate hosted endpoint access through PipMCP.
+Read the sales contact list and add a person to an existing sales workspace.
 
-Maintainer: jannikco · License: MIT · Verification: **mock-only**
+A direct-provider MCP server with useful local execution. No PipMCP account is required for local use. Provider API access and any provider charges are your responsibility.
 
 ## Quick start
 
-Requires Node.js 22 or later.
+Requires Node.js22+. Clone this repository, then run:
 
 ```sh
-npm ci
+npm ci --ignore-scripts
 npm test
 npm start
 ```
 
-The default example runs locally without credentials and makes no external changes. Verification status describes recorded evidence; local configuration tests do not establish that provider authentication or execution works.
+The default command inspects the tools offline. Configure your own credentials in your environment:
 
-## Connect pipedrive
+- `PIPEDRIVE_API_TOKEN`
 
-[Create or sign in to PipMCP](https://pipmcp.com/register?app=pipedrive&utm_source=github&utm_campaign=github-pipedrive-mcp) and select the integration. Connect your authorized provider account and copy its hosted MCP endpoint. Set PIPMCP_ENDPOINT and, if required, PIPMCP_TOKEN in your environment. Run npm start to produce client configuration; run npm start -- --live for a read-only connection check. Provider app presence is catalog evidence, not live verification.
 
-## Managed service
 
-[Continue with PipMCP](https://pipmcp.com/register?app=pipedrive&utm_source=github&utm_campaign=github-pipedrive-mcp). This repository is maintained by the integration team and does not imply endorsement by LinkedIn or other providers.
+Credential help: https://pipedrive.readme.io/docs/how-to-find-the-api-token
 
-## Provenance and support
+## Execute a real read
 
-Source revision: 9cac0ae0ba28a9fef7467511a953d57afd8b1a76fa345c71ea649ae050ef7ab7. The complete manifest is in integration.json; SHA256SUMS covers the reviewed artifact. Open a repository issue without credentials or personal data. See SECURITY.md for sensitive reports. No telemetry is sent by this code; signup links include explicit campaign parameters.
+Replace example record IDs with records you are authorized to access.
 
-## Provider setup inventory
-
-Run `npm start -- --setup` to inspect this app's recorded authentication requirements and setup links offline. Credentials are entered in PipMCP; this repository lists required field names only.
-
-```json
-{
-  "type": "api_key_header",
-  "requiredCredentialFields": [
-    "api_key"
-  ],
-  "requiredHeaderNames": [],
-  "helpUrl": "https://pipedrive.readme.io/docs/how-to-find-the-api-token",
-  "tenantRequired": false,
-  "accountParameterNames": []
-}
+```sh
+npm start -- --call pipedrive_list_persons '{"limit":5}'
 ```
 
-Provider documentation: https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml
-Provider website: https://www.pipedrive.com/
+## Use with an MCP client
+
+Launch `node /absolute/path/pipedrive-mcp/server.mjs` using stdio transport; pass credentials through the client environment. Stdout is reserved for JSON-RPC.
+
+## Tools
+
+| Tool | Effect | Purpose |
+| --- | --- | --- |
+| pipedrive_list_persons | Read | pipedrive list persons |
+| pipedrive_get_person | Read | pipedrive get person |
+| pipedrive_create_person | Explicit approval required | pipedrive create person |
+
+## Concrete workflow
+
+Read the sales contact list and add a person to an existing sales workspace.
+
+1. pipedrive_list_persons
+2. pipedrive_get_person
+3. pipedrive_create_person
+
+## Optional writes
+
+Writes are disabled by default. Set CONNECTOR_ALLOW_WRITES=true and supply `_approval: {approved:true,idempotencyKey:"unique-request-id"}` on the specific call. Do not reuse a key for a different request. Uncertain outcomes are never automatically replayed; inspect the provider before another attempt.
+
+## Capability evidence
+
+Local: **Tested — HTTP fixtures and real stdio tools/call**. Managed: **Documented**. Provider authentication and live operations have not been established by these fixture tests. Evidence applies per operation and execution mode; setup discovery does not imply provider execution.
+
+## Managed production
+
+[Activate with PipMCP](https://pipmcp.com/github/start?app=pipedrive&integration=pipedrive-mcp&utm_source=github&utm_campaign=github-pipedrive-mcp&utm_content=readme) when you want the hosted service.  Local credentials are not uploaded by this code. Review provider permissions in the managed onboarding. [Directory and related projects](https://jannikco.github.io/pipmcp-connectors/integrations/pipedrive/).
+
+## Provenance and maintenance
+
+- https://developers.pipedrive.com/docs/api/v1/openapi-v2.yaml
+
+Maintainer:jannikco. MIT license for this code. See connector.json for selected operations and integration.json for evidence. Runtime dependencies retain their own licenses. Report sensitive issues through https://pipmcp.com/contact; do not post credentials or customer data in public issues.
