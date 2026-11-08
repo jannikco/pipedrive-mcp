@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-pipedrive",
+      "description": "Connect AI agents to Pipedrive using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-pipedrive/SKILL.md": "ca32d7374aebb0371b685e49447d73f3460c7b0416e59dee87d67f91650dc5e8"
+  }
+}
